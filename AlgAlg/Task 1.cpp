@@ -51,12 +51,18 @@ double peek (struct Stack* s, double defval = 0.0) {
     return s->top->value;
 }
 
+void clear(struct Stack* s) {
+    while (s->top != NULL) {
+        delete s->top;
+    }
+}
+
 int main() {
      Stack* st =  new Stack;
      init(st);
      push(st, 67);
      cout << pop(st) << endl;
      cout << pop(st) << endl;
-     delete st;
+     clear(st);
      return 0;
 }
