@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+#define MISTAKE -1
+#define SUCCESS 1
+#define INTMAX 10^308
+
 struct Node {
     double value;
     Node* next;
@@ -15,79 +19,78 @@ struct Stack {
 void init (struct Stack* s, int cap = 100) {
     s->size = 0;
     s->capacity = cap;
-    s->top = NULL;
+    s->top = nullptr;
 }
 
-double push (struct Stack* s, double val, double m = -1.0, double g = 1.0) {
+int push (struct Stack* s, double val) {
     if (s->size == s->capacity) {
-        return m;
+        return MISTAKE;
     }
     Node* newy = new Node;
     newy->value = val;
     newy->next = s->top;
     s->top = newy;
     s->size++;
-    return g;
+    return SUCCESS;
 }
 
-double pop (struct Stack* s, double defval = 0.0) {
-    if (s->top == NULL) {
-        return defval;
+int pop (struct Stack* s, double &b) {
+    if (s->top == nullptr) {
+        return MISTAKE;
     }
     Node* tmp = s->top;
-    double val = tmp->value;
+    b = tmp->value;
     s->top = s->top->next;
     delete tmp;
     s->size--;
-    return val;
+    return SUCCESS;
 }
 
-double peek (struct Stack* s, double defval = 0.0) {
+int peek (struct Stack* s, double &b) {
     if (s->top == NULL) {
-        return defval;
+        return MISTAKE;
     }
-    return s->top->value;
+    b = s->top->value;
+    return SUCCESS;
 }
 
-double clear(struct Stack* s, double defval = 0.0) {
+int clear(struct Stack* s, double &b) {
     if (s->top == NULL) {
-        return defval;
+        return MISTAKE;
     }
     while (s->top != NULL) {
-        pop(s);
+        pop(s, b);
     }
-    return 1.0;
+    return SUCCESS;
 }
 
 int main(void) {
     Stack* st =  new Stack;
     int size = -1, command = -1;
-    double val = 0.0, a = 0.0;
+    double val = 0.0, b;
+    int fl = 0;
     cin >> size;
-    if (size == 0) init(st);
+    if (size <= 0) init(st);
     else init(st, size);
     do {
         cin >> command;
         switch (command){
             case 1:
                 cin >> val;
-                a = push(st, val);
-                if (a == -1.0) cout << "The stack is overflowed" << endl;
+                fl = push(st, val);
+                if (fl == -1) cout << "The stack is overflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 2:
-                val = pop(st);
-                if (val == 0.0) cout << "The stack is underflowed" << endl;
-                else cout << "The popped value: " << val << endl;
+                if (pop(st, b) == 0) cout << "The stack is underflowed" << endl;
+                else cout << "The popped value: " << b << endl;
                 break;
             case 3:
-                a = peek(st);
-                if (a == 0.0) cout << "The stack is underflowed" << endl;
-                else cout << "The top is : " << a << endl;
+                if (peek(st, b) == 0) cout << "The stack is underflowed" << endl;
+                else cout << "The top is : " << b << endl;
                 break;
             case 4:
-                a = clear(st);
-                if (a == 0.0) cout << "The stack is underflowed" << endl;
+                if (clear(st, b) == 0) cout << "The stack is underflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 0:
@@ -98,7 +101,7 @@ int main(void) {
                 break;
          }
     } while (command != 0);
-    clear(st);
+    clear(st, b);
     delete(st);
     return 0;
 }
