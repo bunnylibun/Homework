@@ -73,7 +73,7 @@ int main(void) {
                 cin >> val;
                 a = push(st, val);
                 if (a == -1.0) cout << "The stack is overflowed" << endl;
-                else cout << "Success! " << a << endl;
+                else cout << "Success! " << endl;
                 break;
             case 2:
                 val = pop(st);
@@ -88,7 +88,7 @@ int main(void) {
             case 4:
                 a = clear(st);
                 if (a == 0.0) cout << "The stack is underflowed" << endl;
-                else cout << "Success! " << a << endl;
+                else cout << "Success! " << endl;
                 break;
             case 0:
                 cout << "Exiting..." << endl;
