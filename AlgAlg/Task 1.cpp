@@ -18,15 +18,16 @@ void init (struct Stack* s, int cap = 100) {
     s->top = NULL;
 }
 
-double push (struct Stack* s, double val, double defval = -1.0) {
+double push (struct Stack* s, double val, double m = -1.0, double g = 1.0) {
     if (s->size == s->capacity) {
-        return defval;
+        return m;
     }
     Node* newy = new Node;
     newy->value = val;
     newy->next = s->top;
     s->top = newy;
     s->size++;
+    return g;
 }
 
 double pop (struct Stack* s, double defval = 0.0) {
@@ -59,29 +60,45 @@ double clear(struct Stack* s, double defval = 0.0) {
 }
 
 int main(void) {
-     Stack* st =  new Stack;
-     int size = -1, command = -1;
-     cin >> size >> endl;
-     if (size == 0) init(st);
-     else init(st);
-     do {
-         cin >> command >>  endl;
-         switch (command){
-             case 1:
-                 double val = 0.0;
-                 cin >> val >> endl;
-                 if (push(st, val) == -1.0) cout << "The stack is overflowed" << endl;
-             case 2:
-                 if (pop(st) == 0.0) cout << "The stack is underflowed" << endl;
-                 else cout << "The popped value: " << pop(st) << endl;
-             case 3:
-                 if (peek(st) == 0.0) cout << "The stack is underflowed" << endl;
-                 else cout << "The top is : " << peek(st) << endl;
-             case 4:
-                 if (clear(st) == 0.0) cout << "The stack is underflowed" << endl;
-                 else cout << "Success! " << clear(st) << endl;
+    Stack* st =  new Stack;
+    int size = -1, command = -1;
+    double val = 0.0, a = 0.0;
+    cin >> size;
+    if (size == 0) init(st);
+    else init(st, size);
+    do {
+        cin >> command;
+        switch (command){
+            case 1:
+                cin >> val;
+                a = push(st, val);
+                if (a == -1.0) cout << "The stack is overflowed" << endl;
+                else cout << "Success! " << a << endl;
+                break;
+            case 2:
+                val = pop(st);
+                if (val == 0.0) cout << "The stack is underflowed" << endl;
+                else cout << "The popped value: " << val << endl;
+                break;
+            case 3:
+                a = peek(st);
+                if (a == 0.0) cout << "The stack is underflowed" << endl;
+                else cout << "The top is : " << a << endl;
+                break;
+            case 4:
+                a = clear(st);
+                if (a == 0.0) cout << "The stack is underflowed" << endl;
+                else cout << "Success! " << a << endl;
+                break;
+            case 0:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Non existing command" << endl;
+                break;
          }
-     } while (command != 0);
-     clear(st);
-     return 0;
+    } while (command != 0);
+    clear(st);
+    delete(st);
+    return 0;
 }
