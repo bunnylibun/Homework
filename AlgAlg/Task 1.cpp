@@ -3,7 +3,6 @@ using namespace std;
 
 #define MISTAKE -1
 #define SUCCESS 1
-#define INTMAX 10^308
 
 struct Node {
     double value;
