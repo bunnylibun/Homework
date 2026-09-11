@@ -82,15 +82,15 @@ int main(void) {
                 else cout << "Success! " << endl;
                 break;
             case 2:
-                if (pop(st, b) == 0) cout << "The stack is underflowed" << endl;
+                if (pop(st, b) == -1) cout << "The stack is underflowed" << endl;
                 else cout << "The popped value: " << b << endl;
                 break;
             case 3:
-                if (peek(st, b) == 0) cout << "The stack is underflowed" << endl;
+                if (peek(st, b) == -1) cout << "The stack is underflowed" << endl;
                 else cout << "The top is : " << b << endl;
                 break;
             case 4:
-                if (clear(st, b) == 0) cout << "The stack is underflowed" << endl;
+                if (clear(st, b) == -1) cout << "The stack is underflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 0:
