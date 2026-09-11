@@ -47,7 +47,7 @@ int pop (struct Stack* s, double &b) {
 }
 
 int peek (struct Stack* s, double &b) {
-    if (s->top == NULL) {
+    if (s->top == nullptr) {
         return MISTAKE;
     }
     b = s->top->value;
@@ -55,10 +55,10 @@ int peek (struct Stack* s, double &b) {
 }
 
 int clear(struct Stack* s, double &b) {
-    if (s->top == NULL) {
+    if (s->top == nullptr) {
         return MISTAKE;
     }
-    while (s->top != NULL) {
+    while (s->top != nullptr) {
         pop(s, b);
     }
     return SUCCESS;
