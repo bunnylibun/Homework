@@ -53,12 +53,13 @@ int peek (struct Stack* s, double &b) {
     return SUCCESS;
 }
 
-int clear(struct Stack* s, double &b) {
+int clear(struct Stack* s) {
     if (s->top == nullptr) {
         return MISTAKE;
     }
+    double d;
     while (s->top != nullptr) {
-        pop(s, b);
+        pop(s, d);
     }
     return SUCCESS;
 }
@@ -89,7 +90,7 @@ int main(void) {
                 else cout << "The top is : " << b << endl;
                 break;
             case 4:
-                if (clear(st, b) == -1) cout << "The stack is underflowed" << endl;
+                if (clear(st) == -1) cout << "The stack is underflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 0:
@@ -100,7 +101,7 @@ int main(void) {
                 break;
          }
     } while (command != 0);
-    clear(st, b);
+    clear(st);
     delete(st);
     return 0;
 }
