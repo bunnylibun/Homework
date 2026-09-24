@@ -1,13 +1,19 @@
 #include <iostream>
 using namespace std;
 
-#define MISTAKE -1
+#define OVERFLOW 2
+#define UNDERFLOW -1
 #define SUCCESS 1
+
+enum bunny {
+    white = 0,
+    black = 1
+};
 
 class Stack {
 private: 
     struct Node {
-        double value;
+        bunny value;
         Node* next;
     };
     int size;
@@ -17,9 +23,9 @@ public:
     Stack(int cap = 100) : size(0), capacity(cap), top(nullptr) {}
     ~Stack();
 
-    int push(double val);
-    int pop(double &b);
-    int peek(double&b);
+    int push(bunny val);
+    int pop(bunny &b);
+    int peek(bunny &b);
     int clear();
 };
 
@@ -27,9 +33,9 @@ Stack::~Stack() {
     clear();
 }
 
-int Stack::push (double val) {
+int Stack::push (bunny val) {
     if (size == capacity) {
-        return MISTAKE;
+        return OVERFLOW;
     }
     Node* newy = new Node;
     newy->value = val;
@@ -39,9 +45,9 @@ int Stack::push (double val) {
     return SUCCESS;
 }
 
-int Stack::pop (double &b) {
+int Stack::pop (bunny &b) {
     if (top == nullptr) {
-        return MISTAKE;
+        return UNDERFLOW;
     }
     Node* tmp = top;
     b = tmp->value;
@@ -51,9 +57,9 @@ int Stack::pop (double &b) {
     return SUCCESS;
 }
 
-int Stack::peek (double &b) {
+int Stack::peek (bunny &b) {
     if (top == nullptr) {
-        return MISTAKE;
+        return UNDERFLOW;
     }
     b = top->value;
     return SUCCESS;
@@ -61,9 +67,9 @@ int Stack::peek (double &b) {
 
 int Stack::clear() {
     if (top == nullptr) {
-        return MISTAKE;
+        return UNDERFLOW;
     }
-    double d;
+    bunny d;
     while (top != nullptr) {
         pop(d);
     }
@@ -71,29 +77,39 @@ int Stack::clear() {
 }
 
 int main(void) {
-    int size = -1, command = -1;
-    double val = 0.0, b = 0.0;
+    int size = -1, command = -1, input = -1;
+    bunny val, b;
     int fl = 0;
     cin >> size;
-    Stack st(size > 0 ? size : 100);    
+    Stack st(size > 0 ? size : 100);
+    for (int i=0; i < 1000; i++) {
+        cout << "Type 0 for white bunny or 1 for black one" << endl;
+        cin >> input;
+        if (st.push(input) == OVERFLOW) cout << "The stack is overflowed" << endl;
+        else cout << "Success! " << endl;
+    }
+    for (int i=0; i < 1000; i++) {
+        if (st.pop(b) == UNDERFLOW) cout << "The stack is underflowed" << endl;
+        else cout << "The popped value: " << b << endl;
+    }
     do {
         cin >> command;
         switch (command){
             case 1:
                 cin >> val;
-                if (st.push(val) == -1) cout << "The stack is overflowed" << endl;
+                if (st.push(val) == OVERFLOW) cout << "The stack is overflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 2:
-                if (st.pop(b) == -1) cout << "The stack is underflowed" << endl;
+                if (st.pop(b) == UNDERFLOW) cout << "The stack is underflowed" << endl;
                 else cout << "The popped value: " << b << endl;
                 break;
             case 3:
-                if (st.peek(b) == -1) cout << "The stack is underflowed" << endl;
+                if (st.peek(b) == UNDERFLOW) cout << "The stack is underflowed" << endl;
                 else cout << "The top is : " << b << endl;
                 break;
             case 4:
-                if (st.clear() == -1) cout << "The stack is underflowed" << endl;
+                if (st.clear() == UNDERFLOW) cout << "The stack is underflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 0:
