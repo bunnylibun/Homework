@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
 
-#define MISTAKE -1
+#define OVERFLOW 2
+#define UNDERFLOW -1
 #define SUCCESS 1
 
 struct Node {
@@ -23,7 +24,7 @@ void init (struct Stack* s, int cap = 100) {
 
 int push (struct Stack* s, double val) {
     if (s->size == s->capacity) {
-        return MISTAKE;
+        return OVERFLOW;
     }
     Node* newy = new Node;
     newy->value = val;
@@ -35,7 +36,7 @@ int push (struct Stack* s, double val) {
 
 int pop (struct Stack* s, double &b) {
     if (s->top == nullptr) {
-        return MISTAKE;
+        return UNDERFLOW;
     }
     Node* tmp = s->top;
     b = tmp->value;
@@ -47,19 +48,18 @@ int pop (struct Stack* s, double &b) {
 
 int peek (struct Stack* s, double &b) {
     if (s->top == nullptr) {
-        return MISTAKE;
+        return UNDERFLOW;
     }
     b = s->top->value;
     return SUCCESS;
 }
 
-int clear(struct Stack* s) {
+int clear(struct Stack* s, double &b) {
     if (s->top == nullptr) {
-        return MISTAKE;
+        return UNDERFLOW;
     }
-    double d;
     while (s->top != nullptr) {
-        pop(s, d);
+        pop(s, b);
     }
     return SUCCESS;
 }
@@ -78,19 +78,19 @@ int main(void) {
             case 1:
                 cin >> val;
                 fl = push(st, val);
-                if (fl == -1) cout << "The stack is overflowed" << endl;
+                if (fl == OVERFLOW) cout << "The stack is overflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 2:
-                if (pop(st, b) == -1) cout << "The stack is underflowed" << endl;
+                if (pop(st, b) == UNDERFLOW) cout << "The stack is underflowed" << endl;
                 else cout << "The popped value: " << b << endl;
                 break;
             case 3:
-                if (peek(st, b) == -1) cout << "The stack is underflowed" << endl;
+                if (peek(st, b) == UNDERFLOW) cout << "The stack is underflowed" << endl;
                 else cout << "The top is : " << b << endl;
                 break;
             case 4:
-                if (clear(st) == -1) cout << "The stack is underflowed" << endl;
+                if (clear(st, b) == UNDERFLOW) cout << "The stack is underflowed" << endl;
                 else cout << "Success! " << endl;
                 break;
             case 0:
@@ -101,7 +101,7 @@ int main(void) {
                 break;
          }
     } while (command != 0);
-    clear(st);
+    clear(st, b);
     delete(st);
     return 0;
 }
