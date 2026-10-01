@@ -4,11 +4,13 @@ using namespace std;
 #define OVERFLOW -2
 #define UNDERFLOW -1
 #define SUCCESS 2
-#define NONEXIST 3
+#define NONEXIST 9
 
 enum bunny {
     white = 0,
-    black = 1
+    black = 1,
+    pink = 2,
+    brown = 3
 };
 
 class Stack {
@@ -38,7 +40,7 @@ int Stack::push (bunny val) {
     if (size == capacity) {
         return OVERFLOW;
     }
-    if (val != 0 && val != 1) {
+    if (val != 0 && val != 1 && val != 2 && val != 3) {
         return NONEXIST;
     }
     Node* newy = new Node;
@@ -92,13 +94,13 @@ int main(void) {
     }
     for (int i=0; i < 1000; i++) {
         if (st.pop(b) == UNDERFLOW) cout << "The stack is underflowed" << endl;
-        else cout << "The popped value: " << b << endl;
+        else cout << "The popped value: 1, black bunny" << endl;
     }
     do {
         cin >> command;
         switch (command){
             case 1:
-                cout << "Type '0' for white bunny and '1' for black one: ";
+                cout << "Type '0' for white bunny, '1' for black one, '2' for pink binny or '3' for brown one: ";
                 cin >> input;
                 output = st.push((bunny)input);
                 if (output == OVERFLOW) cout << "No room for more bunnies" << endl;
@@ -110,7 +112,9 @@ int main(void) {
                 if (output == UNDERFLOW) cout << "There's no bunnies in here" << endl;
                 else {
                     if (b == 0) cout << "The popped value: 0, white bunny" << endl;
-                    else cout << "The popped value: 1, black bunny" << endl;
+                    else if (b == 1) cout << "The popped value: 1, black bunny" << endl;
+                    else if (b == 2) cout << "The popped value: 2, pink bunny" << endl;
+                    else if (b == 3) cout<<"The popped value: 3, brown bunny" << endl;
                 }
                 break;
             case 3:
@@ -118,7 +122,9 @@ int main(void) {
                 if (output == UNDERFLOW) cout << "There's no bunnies in here" << endl;
                 else {
                     if (b == 0) cout << "The peeked value: 0, white bunny" << endl;
-                    else cout << "The peeked value: 1, black bunny" << endl;
+                    else if (b == 1) cout << "The peeked value: 1, black bunny" << endl;
+                    else if (b == 2) cout << "The peeked value: 2, pink bunny" << endl;
+                    else if (b == 3) cout<<"The peeked value: 3, brown bunny" << endl;
                 }
                 break;
             case 4:
