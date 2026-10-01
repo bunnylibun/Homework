@@ -15,7 +15,8 @@ public:
     Stack(const Stack& st): capacity(st.capacity), top(st.top), data (new double[st.capacity]) {
         for (int i = 0; i < top; i++) {
             data[i] = st.data[i];
-        }  
+        }
+        cout << "You used copy constructor" << endl;
     }
     Stack(Stack&& st) {
         data = st.data;
