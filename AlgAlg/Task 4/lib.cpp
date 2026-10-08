@@ -21,7 +21,7 @@ int Sheepcote::get_max_size() {
 
 Sheepcote::Sheepcote() : size(0), arr (new Sheep[get_max_size()]) {}
 
-void Sheepcote::setsize(double w, double l) {
+void Sheepcote::set_size(double w, double l) {
     width = w;
     length = l;
 }
@@ -35,7 +35,7 @@ int Sheepcote::clear() {
         return UNDERFLOW;
     }
     delete[] arr;
-    arr = new Sheep[get_max_size()];
+    arr = new Sheep[get_size()];
     size = 0;
     return SUCCESS;
 }
@@ -52,8 +52,8 @@ int Sheepcote::addSheep(Sheep sh) {
         if (width > 1000 || length > 1000) {
             return OVERFLOW;
         }
-        width *= 2;
-        length *= 2;
+        width += sheep_w;
+        length += sheep_l;
         Sheep* newarr = new Sheep[get_max_size()];
         for (int i = 0; i < size; i++) {
             newarr[i] = arr[i];
