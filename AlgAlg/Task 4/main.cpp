@@ -22,15 +22,13 @@ int main(void) {
          << ", max = " << Sheepcote::get_max_size() 
          << ", area = " << Sheepcote::area() << endl;
     
-    for (int i = 0; i < 1000; ++i) {
+    for (int i = 0; i < 10; i++) {
         Sheep sh = randomSheep();
         int res = sc.addSheep(sh);
-        if (i % 100 == 0) {
-            cout << "Step " << i << ": sheep = " << sc.get_size()
-                 << ", max = " << Sheepcote::get_max_size()
-                 << ", area = " << Sheepcote::area()
-                 << ", result = " << res << endl;
-        }
+        cout << "Step " << i << ": sheep = " << sc.get_size()
+             << ", max = " << Sheepcote::get_max_size()
+             << ", area = " << Sheepcote::area()
+             << ", code = " << res << endl;
     }
     cout << "\nFinal: sheeps = " << sc.get_size()
          << ", max = " << Sheepcote::get_max_size()
