@@ -26,7 +26,7 @@ public:
     Sheepcote();
     ~Sheepcote();
     static double area();
-    static void setsize(double w, double l);
+    static void set_size(double w, double l);
     static int get_max_size();
     int get_size();
     int addSheep(Sheep sh);
