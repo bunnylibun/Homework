@@ -10,13 +10,13 @@ int main(void) {
     cout << g3 << endl;
     
     if (g1 > g2) {
-        cout << "g1 is in more amount than g2" << endl;
+        cout << "We have g1 in more amount than g2" << endl;
     }
     
     ++g1;
     
     if (g1) {
-        cout << "g1 exists" << endl;
+        cout << "Yes, we have g1 in stock" << endl;
     }
     return 0;
 }
