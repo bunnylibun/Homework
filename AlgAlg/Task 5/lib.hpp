@@ -3,13 +3,13 @@
 using namespace std;
 
 enum colour {
-    pink = 0,
-    gold = 1,
-    silver = 2,
-    rose_gold = 3,
-    steely_pink = 4,
-    metallic = 5,
-    unclear = 6
+    pink,
+    gold,
+    silver,
+    rose_gold,
+    steely_pink,
+    metallic,
+    unclear
 };
 
 class Glitter {
@@ -17,8 +17,9 @@ private:
     colour col;
     double amount;
 public:
-    Glitter();
+    Glitter(const Glitter& g);
     Glitter(colour c, double a);
+    Glitter(Glitter &&g);
     ~Glitter();
     
     Glitter operator+(const Glitter& g) const;
