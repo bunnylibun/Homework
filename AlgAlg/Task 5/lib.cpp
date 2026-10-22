@@ -2,10 +2,16 @@
 #include "lib.hpp"
 using namespace std;
 
-#define UNDERFLOW -1
-#define SUCCESS 0
-
 Glitter::Glitter(colour c, double a) : col(c), amount(a) {}
+
+Glitter::Glitter(const Glitter& g): col(g.col), amount(g.amount) {}
+
+Glitter::Glitter(Glitter &&g) {
+    amount = g.amount;
+    col = g.col;
+    g.amount = 0;
+    g.col = unclear;
+}
 
 Glitter::~Glitter() {}
 
@@ -53,7 +59,7 @@ Glitter::operator bool() const {
 }
 
 ostream& operator<<(ostream& out, const Glitter& g) {
-    out << "Glitter(color=" << g.col << ", amount=" << g.amount << ")";
+    out << "Glitter: color - " << g.col << ", amount - " << g.amount;
     return out;
 }
 
