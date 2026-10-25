@@ -5,30 +5,54 @@ using namespace std;
 enum colour {
     pink,
     gold,
-    silver,
     rose_gold,
-    steely_pink,
-    metallic,
-    unclear
+    neutral
 };
 
-class Glitter {
+class Paint {
 private:
     colour col;
-    double amount;
+    double intensity;
 public:
-    Glitter(const Glitter& g);
-    Glitter(colour c, double a);
-    Glitter(Glitter &&g);
-    ~Glitter();
+    Paint(const Paint& p);
+    Paint(colour c, double i);
+    Paint(Paint &&p);
+    ~Paint();
     
-    Glitter operator+(const Glitter& g) const;
-    bool operator==(const Glitter& g) const;
-    bool operator>(const Glitter& g) const;
-    const Glitter& operator++();
+    Paint operator+(const Paint& p) const;
+    bool operator==(const Paint& p) const;
+    bool operator>(const Paint& p) const;
+    const Paint& operator++();
     
-    friend ostream& operator<<(ostream& out, const Glitter& g);
-    friend istream& operator>>(istream& in, Glitter& g);
+    friend ostream& operator<<(ostream& out, const Paint& p);
+    friend istream& operator>>(istream& in, Paint& p);
+    
+    explicit operator string() const;
+    explicit operator bool() const;
+
+    friend class Bunny;
+};
+
+class Bunny {
+private:
+    colour fur;
+    double intensity;
+public:
+    Bunny(const Bunny& b);
+    Bunny();
+    Bunny(Bunny &&b);
+    ~Bunny();
+    
+    void paint(const Paint& p);
+    void wash();               
+    
+    Bunny operator+(const Paint& p) const;
+    bool operator==(const Bunny& b) const;
+    bool operator>(const Bunny& b) const;
+    const Bunny& operator++();
+    
+    friend ostream& operator<<(ostream& out, const Bunny& b);
+    friend istream& operator>>(istream& in, Bunny& b);
     
     explicit operator string() const;
     explicit operator bool() const;
