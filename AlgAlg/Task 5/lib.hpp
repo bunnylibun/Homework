@@ -2,58 +2,45 @@
 #include <string>
 using namespace std;
 
-enum colour {
-    pink,
-    gold,
-    rose_gold,
-    neutral
+class Duration {
+private:
+    int days;
+    char str_buf[32];
+public:
+    Duration();
+    Duration(int d);
+
+    operator int() const;
+    operator const char*() const;
+
+    Duration operator-();
+    Duration operator+(const Duration& dur) const;
+    Duration operator-(const Duration& dur) const;
+    Duration operator*(int k) const;
+    friend ostream& operator<<(ostream& out, const Duration& d);
+    friend istream& operator>>(istream& in, Duration& d);
 };
 
-class Paint {
+class Date {
 private:
-    colour col;
-    double intensity;
+    int day, month, year;
+    char str_buf[32];
+    
 public:
-    Paint(const Paint& p);
-    Paint(colour c, double i);
-    Paint(Paint &&p);
-    ~Paint();
-    
-    Paint operator+(const Paint& p) const;
-    bool operator==(const Paint& p) const;
-    bool operator>(const Paint& p) const;
-    const Paint& operator++();
-    
-    friend ostream& operator<<(ostream& out, const Paint& p);
-    friend istream& operator>>(istream& in, Paint& p);
-    
-    explicit operator string() const;
-    explicit operator bool() const;
+    static bool is_leap(int y);
+    int to_days() const;
+    void from_days(int total);
 
-    friend class Bunny;
-};
+    Date();
+    Date(int d, int m, int y);
+    
+    operator int() const;
+    operator const char*() const;
 
-class Bunny {
-private:
-    colour fur;
-    double intensity;
-public:
-    Bunny(const Bunny& b);
-    Bunny();
-    Bunny(Bunny &&b);
-    ~Bunny();
-    
-    void paint(const Paint& p);
-    void wash();               
-    
-    Bunny operator+(const Paint& p) const;
-    bool operator==(const Bunny& b) const;
-    bool operator>(const Bunny& b) const;
-    const Bunny& operator++();
-    
-    friend ostream& operator<<(ostream& out, const Bunny& b);
-    friend istream& operator>>(istream& in, Bunny& b);
-    
-    explicit operator string() const;
-    explicit operator bool() const;
+    const Date& operator++();
+    friend Date operator+(const Date& d, const Duration& dur);
+    friend Date operator-(const Date& d, const Duration& dur);
+    friend Duration operator-(const Date& d1, const Date& d2);
+    friend ostream& operator<<(ostream& out, const Date& d);
+    friend istream& operator>>(istream& in, Date& d);
 };
