@@ -56,16 +56,20 @@ void Date::from_days(int total) {
     while (fl1) {
         int yd = is_leap(year) ? 366 : 365;
         if (total < yd) fl1 = 0;
-        total -= yd;
-        year++;
+        else {
+            total -= yd;
+            year++;
+        }
     }
     int fl2 = 1;
     int mdays[] = {31, 28 + is_leap(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     month = 1;
     for (int m = 0; m < 12 && fl2; m++) {
         if (total < mdays[m]) fl2 = 0;
-        total -= mdays[m];
-        month++;
+        else {
+            total -= mdays[m];
+            month++;
+        }
     }
     day = total + 1;
 }
