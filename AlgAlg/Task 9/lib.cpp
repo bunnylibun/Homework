@@ -1,7 +1,10 @@
 #include "lib.hpp"
 using namespace std;
 
-Pet::Pet() : x(0), y(0) {}
+void Movable::position() const {
+    cout << "It is at (" << x << ", " << y << ")" << endl;
+}
+
 
 void Pet::move() {
     x += 1;
@@ -11,10 +14,6 @@ void Pet::move() {
 
 const char* Pet::name() const {
     return "Pet";
-}
-
-void Pet::position() const {
-    cout << "Pet is at (" << x << ", " << y << ")" << endl;
 }
 
 
@@ -28,16 +27,8 @@ const char* Player::name() const {
     return "Player";
 }
 
-void Player::position() const {
-    cout << "Player is at (" << x << ", " << y << ")" << endl;
-}
-
 void Player::attack(Movable* target) {
-    cout << "Player attacks " << target->name() << " for " << damage() << " damage\n";
-}
-
-int Player::damage() const {
-    return 10;
+    cout << "Player attacks " << target->name() << " for " << damage << " damage\n";
 }
 
 void Player::heal(Movable* target, int hp) {
@@ -55,17 +46,9 @@ const char* Monster::name() const {
     return "Monster";
 }
 
-void Monster::position() const {
-    cout << "Monster is at (" << x << ", " << y << ")\n";
-}
-
 void Monster::attack(Movable* target) {
     cout << "Monster attacks " << target->name() 
-         << " for " << damage() << " damage\n";
-}
-
-int Monster::damage() const {
-    return 30;
+         << " for " << damage << " damage\n";
 }
 
 
@@ -79,16 +62,8 @@ const char* Boss::name() const {
     return "Boss";
 }
 
-void Boss::position() const {
-    cout << "Boss is at (" << x << ", " << y << ")\n";
-}
-
 void Boss::attack(Movable* target) {
-    cout << "Boss attacks " << target->name() << " for " << damage() << " damage\n";
-}
-
-int Boss::damage() const {
-    return 100;
+    cout << "Boss attacks " << target->name() << " for " << damage << " damage\n";
 }
 
 
