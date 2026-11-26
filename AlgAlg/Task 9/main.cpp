@@ -3,21 +3,32 @@ using namespace std;
 
 int main() {
     Movable* m = static_cast<Movable*>(new Pet()); 
-    Healer* h = dynamic_cast<Healer*>(new Player());
+    Healer* h = dynamic_cast<Healer*>(new Player(10));
+
+    Attacker* a = static_cast<Attacker*>(new Player(10));
+    Movable* mov = dynamic_cast<Movable*>(new Monster(30));
+
+    Monster* monst = dynamic_cast<Monster*>(new Player(10));
 
     Pet* pet = dynamic_cast<Pet*>(m);
-    if (Player* p = static_cast<Player*>(h)) {
+    Player* p = dynamic_cast<Player*>(h);
+    if (p!=nullptr) {
         cout << "Can downcast Healer to Player" << endl;
     }
-
-    Monster* monst = dynamic_cast<Monster*>(new Player());
-
-    Attacker* a = static_cast<Attacker*>(new Player());
-    Movable* mov = dynamic_cast<Movable*>(new Monster());
     
-    Attacker* atk = static_cast<Attacker*>(new Boss());
+    Monster* monster = new Monster(30);
+    Player* player = new Player(10);
+    player->attack(monster);
+
+    Attacker* atk = static_cast<Attacker*>(new Boss(100));
     if (Boss* boss = dynamic_cast<Boss*>(atk)) {
         cout << "Can downcast Attack to Boss" << endl;
     }
+
+    free(m);
+    free(h);
+    free(monst);
+    free(monster);
+    free(player);
     return 0;
 }
