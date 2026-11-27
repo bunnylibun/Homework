@@ -25,10 +25,13 @@ int main() {
         cout << "Can downcast Attack to Boss" << endl;
     }
 
-    free(m);
-    free(h);
-    free(monst);
-    free(monster);
-    free(player);
+    delete m;
+    delete h;
+    delete a;
+    delete mov;
+    delete monst;
+    dekete monster;
+    delete player;
+    delete atk;
     return 0;
 }
