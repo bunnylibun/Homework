@@ -30,7 +30,7 @@ int main() {
     delete a;
     delete mov;
     delete monst;
-    dekete monster;
+    delete monster;
     delete player;
     delete atk;
     return 0;
